@@ -1,0 +1,37 @@
+.login_block {
+    height: 85%;
+}
+
+.block_login {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.table {
+    text-align: center;
+}
+
+input[type=text], input[type=password], input[type=number], input[type=email] {
+    width: 350px;
+    font-size: 20px;
+    color: #562E70;
+    margin-bottom: 20px;
+    padding: 12px 20px;
+    border: none;
+    border-bottom: 2px solid #562E70;
+}
+
+input[type=text]:focus, input[type=password]:focus, input[type=number]:focus, input[type=email]:focus  {
+    outline: 0;
+    outline-offset: 0;
+}
+
+.btn_post {
+    cursor: pointer;
+    font-size: 20px;
+}
+.btn_reg {
+    margin: 10px 0 50px 0;
+}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block link %}
+    <link rel = "stylesheet" href = "{% static "css/note_add.css" %}" >
+{% endblock %}
+
+{% block content %}
+<h1 class="h1">Добавить заметку</h1>
+<form action method="post"> {% csrf_token %}
+    <table class="add_note">
+        <tr>
+            <td>
+                <label for="text">Текст</label>
+                {{ form.title }}
+            </td>
+        </tr>
+        <tr>
+        <tr>
+            <td>
+                <label for="date_time">Окончание работы (срок)</label>
+                {{ form.end_date }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit" class="sumbit_link btn_add_note">Добавить заметку</button>
+            </td>
+        </tr>
+    </table>
+</form>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block link %}
+     <link rel = "stylesheet" href="{% static 'css/login-register.css' %}" >
+{% endblock %}
+
+{% block content %}
+    <div class="login_block">
+        <div class="container">
+            <div class="block_login">
+                <table class="table">
+                    <tr>
+                        <td>
+                            <h1 class="h1">Вы вышли из аккаунта!</h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="{% url 'login'%}">Нажмите здесь, чтобы войти снова.</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

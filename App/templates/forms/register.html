@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block link %}
+    <link rel = "stylesheet" href = "{% static 'css/login-register.css' %}" >
+{% endblock %}
+
+{% block content %}
+
+<div class="login_block">
+    <div class="container">
+        <div class="block_login">
+            <form method="POST" style="margin-top: 50px">{% csrf_token %}
+                <table class="table">
+                    <tr>
+                        <td><h1 class="h1">Регистрация</h1></td>
+                    <tr>
+                        <td>
+                            <p style="color: red; margin: 10px 0">
+
+                                {% if username_error %}
+                                    {{ username_error }}
+
+                                {% elif password2_error %}
+                                    {{ password2_error }}
+
+                                {% elif email_error %}
+                                    {{ email_error }}
+
+                            {% endif %}
+
+                             </p>
+
+
+
+                        </td>
+                    </tr>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="first_name" class="fist_name" placeholder="Имя" required></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="last_name" class="last_name" placeholder="Фамилия" required></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="username" class="username" placeholder="Логин" required></td>
+                    </tr>
+                    <tr>
+                        <td><input type="email" name="email" class="Email" placeholder="Email" required></td>
+                    </tr>
+                    <tr>
+                        <td><input type="password" name="password" class="password" placeholder="Пароль" required></td>
+                    </tr>
+                    <tr>
+                        <td><input type="password" name="password2" class="password" placeholder="Подвердить" required></td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <input type="submit" value="Регистрация" class="sumbit_link btn_reg">
+                            <a href="" class="sumbit_link regis">Войти</a>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

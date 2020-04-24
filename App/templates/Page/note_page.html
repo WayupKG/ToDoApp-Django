@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block link %}
+    <link rel = "stylesheet" href = "{% static 'css/note_page.css' %}" >
+    <link rel = "stylesheet" href = "{% static 'css/update_note.css' %}">
+{% endblock %}
+
+{% block content %}
+
+
+<h1 class="h1">Мои заметки</h1>
+{% if user.is_authenticated %}
+    <form method="post" >{% csrf_token %}
+        <p style="color: red;">
+            {% if errors.error_all %}
+                {{ errors.error_all }}
+            {% elif errors.error_ckboxs %}
+                {{ errors.error_ckboxs }}
+            {% elif errors.error_mode %}
+                {{ errors.error_mode }}
+            {% endif %}
+        </p>
+        <table class="table">
+            <tr style="border: none">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="Act">
+                    Действие:
+                </td>
+                <td class="select2_results">
+                    <div class="custom-select">
+                      <select name="status_select">
+                        <option value="None">----------------</option>
+                        <option value="Сделан">Сделан</option>
+                        <option value="Работаю">Работаю</option>
+                        <option value="В ожидании">В ожидании</option>
+                        <option value="Не сделан">Не сделан</option>
+                        <option value="remove">Удалить!</option>
+                      </select>
+                    </div>
+                </td>
+                <td>
+                    <input type="submit" class="sumbit_link btn_mode" name="Run" value="Выполнить ">
+                </td>
+                <td></td>
+            </tr>
+        </table>
+        <table class="table">
+            <tr class="table_tr_td_th">
+                <th class="id_note table_tr_td_th"><span>ID</span></th>
+                <th class="name_text table_tr_td_th"><span>Наимование</span></th>
+                <th class="data table_tr_td_th"><span>Создан</span></th>
+                <th class="data table_tr_td_th"><span>Срок</span></th>
+                <th class="stst table_tr_td_th"><span>Статус</span></th>
+                <th class="stst table_tr_td_th"><span>Выбрать</span></th>
+            </tr>
+
+            {% for message in messages %}
+                    {% if message.status == 'Не сделан' %}
+                        <tr class="menshe table_tr_td_th">
+                            <td class="menshe table_tr_td_th">{{ message.pk }}</td>
+                            <td class="menshe table_tr_td_th">
+                                <div class="toggle">
+                                    <a class="toggler" href="#">{{ message.title }}</a>
+                                    <div class="content">
+                                        <a href="">
+                                            Редактировать
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="menshe table_tr_td_th">{{ message.create_date }}</td>
+                            <td class="menshe table_tr_td_th">{{ message.end_date }}</td>
+                            <td class="menshe table_tr_td_th">{{ message.status }}</td>
+                            <td class="menshe table_tr_td_th">
+                                <label class="container_checkbox">
+                                    <input type="checkbox" name="status" value="{{ message.pk }}">
+                                  <span class="checkmark"></span>
+                                </label>
+                            </td>
+                        </tr>
+
+                {% else %}
+
+                    <tr class="table_tr_td_th">
+                                <td class="table_tr_td_th">{{ message.pk }}</td>
+                                <td class="table_tr_td_th">
+                                    <div class="toggle">
+                                        <a class="toggler" href="#">{{ message.title }}</a>
+                                        <div class="content">
+                                            <a href="">
+                                                Редактировать
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="table_tr_td_th">{{ message.create_date }}</td>
+                                <td class="table_tr_td_th">{{ message.end_date }}</td>
+                                <td class="table_tr_td_th">{{ message.status }}</td>
+                                <td class="table_tr_td_th">
+                                    <label class="container_checkbox">
+                                        <input type="checkbox" name="status" value="{{ message.pk }}">
+                                      <span class="checkmark"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    </form>
+{% else %}
+    <p>Вам необходимо зарегистрироваться</p>
+{% endif %}
+    <script src="{% static 'js/update_page.js' %}"></script>
+    <script src="{% static 'js/select_status.js' %}"></script>
+{% endblock %}

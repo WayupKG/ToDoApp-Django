@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block link %}
+     <link rel = "stylesheet" href="{% static 'css/login-register.css' %}" >
+{% endblock %}
+
+{% block content %}
+
+<div class="login_block">
+    <div class="container">
+        <div class="block_login">
+
+            <form method="post" action="{% url 'login' %}" >{% csrf_token %}
+                <table class="table">
+                    <tr>
+                        <td>
+                            <h1 class="h1">Авторизоваться</h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {% if form.errors %}
+                                <p style="color: red">Ваше имя пользователя и пароль не совпадают. Пожалуйста, попробуйте еще раз.</p>
+                            {% endif %}
+                            {% if next %}
+                                {% if user.is_authenticated %}
+                                    <p>Ваша учетная запись не имеет доступа к этой странице. Продолжать,
+                                        пожалуйста, войдите в систему с учетной записью, которая имеет доступ.</p>
+                                {% else %}
+                                    <p>Пожалуйста, войдите, чтобы увидеть эту страницу.</p>
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span style="font-size: 22px">Имя пользователя</span> <br>{{ form.username }}</td>
+                    </tr>
+                    <tr>
+                        <td><span style="font-size: 22px">Пароль</span> <br> {{ form.password }}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="submit" value="Войти" class="sumbit_link"/>
+                            <input type="hidden" name="next" value="{{ next }}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p><a href="{% url 'password_reset' %}">Забыл пароль?</a></p>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
