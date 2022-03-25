@@ -23,14 +23,7 @@ class HomeView(TemplateView):
 def message_page(request):
     messages = Message.objects.filter(author=request.user)
     date = datetime.now().strftime("%Y-%m-%d")
-    print(date)
-    # for message in messages:
-    #     if message.end_date.strftime("%Y-%m-%d") < date and message.status == 'В ожидании':
-    #         message.status = 'Не сделан'
-    #         message.save()
-
     errors = {}
-
     ckboxs = request.POST.getlist('status')
     mode = request.POST.get('status_select')
 
@@ -41,24 +34,19 @@ def message_page(request):
 
         elif not ckboxs:
             errors['error_ckboxs'] = "Выберите хотябы одину заметку"
-            print(errors['error_ckboxs'])
 
         elif mode == "None":
             errors['error_mode'] = 'Выберите действия'
-            print(errors['error_mode'])
 
         elif mode == 'remove':
             for pk in ckboxs:
                 message = get_object_or_404(Message, pk=pk)
                 message.delete()
-                print('Удалень')
-
         else:
             for pk in ckboxs:
                 message = get_object_or_404(Message, pk=pk)
                 message.status = mode
                 message.save()
-                print(message.title)
 
     return render(request, 'Page/note_page.html', {'messages': messages, "errors": errors})
 
